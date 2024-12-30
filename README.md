@@ -1,8 +1,28 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## trawell /
+    - home page with create acc and navbar hamburger foot etc login option,google facebook emial phone no. popup 
+    skip
+## /onbording 
+    all componets
+      --email and password
+      --where to travel
+      --age
+      --name
+      --username
+      --country
+      --gender
+      --crazy story of any travelling journey
+      --pictues(face detection atleast 3)
+      --languages
+      --select up to 5 interests
+      --upcoming trip ( destination , Date)
+      --Pick up to 2 cities to follow
+      --Turn on Location Services
+## HOME 
+    -top 
+        hello name                       profilepic with editoption
+        then search
+    middle ads and trending trips
+## FEED
+## Create a Travel plan / Share a post / Ai Itineary
+## MAP feature(753 nearby Travelers)
+## CHATS

@@ -16,8 +16,12 @@ const MainBackground = () => {
 
   return (
     <div className="relative -my-32 m-0 w-screen h-screen overflow-hidden opacity-85 rotate-[-3deg]">
-      <motion.ul
-        className="absolute flex flex-col gap-4 h-[200%]"
+      <div className='flex w-full h-full'>
+        {
+          [...Array(4)].map((_,colIndex) => (
+            <motion.ul
+            key={colIndex}
+        className="flex flex-col w-[22rem] gap-5 h-[200%]"
         initial={{ translateY: "0%" }}
         animate={{ translateY: "-80%" }} // Move halfway as the list is doubled
         transition={{
@@ -27,18 +31,21 @@ const MainBackground = () => {
         }}
       >
         {repeatedImages.map((src, index) => (
-          <li key={index} className="w-full flex-shrink-0">
-            <div className="w-[20rem] h-[25rem] rounded-xl overflow-hidden">
+          <li key={`${colIndex}-${index}`} className="w-full flex-shrink-0">
+            <div className="w-[20rem] h-[25rem]  mx-auto rounded-xl overflow-hidden">
               <img
                 src={src}
-                alt={`Image ${index}`}
+                alt={`Image ${colIndex}-${index}`}
                 className="w-full h-full object-cover"
               />
             </div>
           </li>
         ))}
       </motion.ul>
-    </div>
+          ))
+        }
+      
+    </div></div>
   );
 };
 

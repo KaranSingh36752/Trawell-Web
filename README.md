@@ -28,17 +28,4 @@
 ## CHATS
 
 
-i want to build the apps for this work and app dev will build with it
-
-dafewfwredsaaaaaasddddddddddddddddddddddsadsadewqfrgtryjheutjyunhgnbvbvcxvfdsvreq
-brain ded ho gyuahain
-
-
-some more changes can be done
-s cxnsjeq chneqksm djedknnnnnnnnnnnnnnnnnnnskjawoioaISKOLKSLDMSD
-
-
-looking for the updates
-
-hfxdzsfffffffffffdx fgctyrewqewredrfgbhnjmopmkkkjhvcxzaqwsexdfcv bnn byuihjn
-can i get some updates
+i want to build the apps for this work and app dev will build with

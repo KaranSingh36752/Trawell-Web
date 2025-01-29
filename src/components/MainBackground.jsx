@@ -15,7 +15,8 @@ const MainBackground = () => {
   const repeatedImages = [...images, ...images];
 
   return (
-    <div className="relative -my-32 m-0 w-screen h-screen overflow-hidden opacity-85 rotate-[-3deg] z-0">
+    <div className="relative -my-32 mx-0 w-screen h-screen overflow-hidden opacity-85 rotate-[-3deg] z-0 mr-[-15px] scrollbar-hide">
+
       <div className='flex w-full h-full'>
         {
           [...Array(4)].map((_,colIndex) => (

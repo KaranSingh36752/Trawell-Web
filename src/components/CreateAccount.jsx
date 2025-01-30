@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
-const CreateAccountComponent = ({onclose})
+import CreateAccountComponent from "./CreateAccountComponet";
 
 const CreateAccount = () => {
     const [isOpen , setIsOpen] = useState(false);
@@ -14,9 +13,9 @@ const CreateAccount = () => {
       <motion.button
         className="text-2xl font-bold px-6 py-3 bg-blue-500 text-white rounded-2xl shadow-lg"
         initial={{ scale: 1, y: 0 }}
-        whileHover={{ scale: 1.1, y: -5 }} // Pops up smoothly
-        whileTap={{ scale: 0.95 }} // Slightly shrinks when clicked
-        transition={{ type: "spring", stiffness: 200, damping: 10 }} // Smooth bounce effect
+        whileHover={{ scale: 1.1, y: -5 }} 
+        whileTap={{ scale: 0.95 }} 
+        transition={{ type: "spring", stiffness: 200, damping: 10 }} 
         onClick={() => setIsOpen(true)}
       >
         Create Account

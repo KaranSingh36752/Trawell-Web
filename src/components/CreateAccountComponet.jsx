@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { X, Smartphone,  Apple ,Mail, KeyRound } from "lucide-react";
+import { X, Smartphone, Apple, Mail, KeyRound } from "lucide-react";
+import { em } from "framer-motion/client";
+import axios from "axios";
 
 const CreateAccountComponent = ({ onClose }) => {
+  const [emailId, setEmailId] = useState("simran@gmail.com");
+  const [password, setPassword] = useState("Simran@1234");
   const modalRef = useRef();
 
   useEffect(() => {
@@ -17,6 +21,17 @@ const CreateAccountComponent = ({ onClose }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose]);
+
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post("http://localhost:7777/login", {
+        emailId,
+        password,
+      },{withCredentials: true});
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <motion.div
@@ -33,7 +48,9 @@ const CreateAccountComponent = ({ onClose }) => {
         exit={{ scale: 0.8 }}
       >
         <div className="flex justify-center items-center mb-4">
-          <h2 className="text-xl font-bold flex justify-center">Create Account</h2>
+          <h2 className="text-xl font-bold flex justify-center">
+            Create Account
+          </h2>
         </div>
         <div className="space-y-4">
           <button className="w-full flex items-center justify-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg">
@@ -50,29 +67,43 @@ const CreateAccountComponent = ({ onClose }) => {
           <div className="space-y-2">
             <div className="flex items-center space-x-2 border border-gray-300 rounded-lg px-4 py-2">
               <Mail className="w-5 h-5 text-gray-500" />
-              <input type="tel" placeholder="Email" className="flex-1 outline-none" />
+              <input
+                type="tel"
+                placeholder="Email"
+                className="flex-1 outline-none"
+                value={emailId}
+                onChange={(e) => setEmailId(e.target.value)}
+              />
             </div>
-            <div className="flex items-center space-x-2 border border-gray-300 rounded-lg px-4 py-2">
+            {/* <div className="flex items-center space-x-2 border border-gray-300 rounded-lg px-4 py-2">
               <Smartphone className="w-5 h-5 text-gray-500" />
               <input type="tel" placeholder="Phone number" className="flex-1 outline-none" />
-            </div>
+            </div> */}
             <div className="flex items-center space-x-2 border border-gray-300 rounded-lg px-4 py-2">
               <KeyRound className="w-5 h-5 text-gray-500" />
-              <input type="tel" placeholder="Password" className="flex-1 outline-none" />
+              <input
+                type="tel"
+                placeholder="Password"
+                className="flex-1 outline-none"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
           </div>
-          <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg">
+          <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={handleLogin}>
             Continue
           </button>
           <p className="text-center text-sm text-gray-600">
-            By tapping Log in or Continue, you agree to our Terms. Learn how we process your data in our Privacy Policy, and Cookie Policy.
+            By tapping Log in or Continue, you agree to our Terms. Learn how we
+            process your data in our Privacy Policy, and Cookie Policy.
           </p>
           <div className="text-center">
-            <a href="#" className="text-sm text-blue-500 hover:underline">Trouble Logging In?</a>
+            <a href="#" className="text-sm text-blue-500 hover:underline">
+              Trouble Logging In?
+            </a>
           </div>
           <div className="flex justify-center space-x-4">
             <a href="#" className="flex items-center space-x-2 text-gray-700">
-              <Apple className="w-5 h-5" />
               <span>App Store</span>
             </a>
             <a href="#" className="flex items-center space-x-2 text-gray-700">

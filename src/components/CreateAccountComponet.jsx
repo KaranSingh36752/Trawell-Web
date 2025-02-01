@@ -3,11 +3,13 @@ import { motion } from "framer-motion";
 import { X, Smartphone, Apple, Mail, KeyRound } from "lucide-react";
 import { em } from "framer-motion/client";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const CreateAccountComponent = ({ onClose }) => {
   const [emailId, setEmailId] = useState("simran@gmail.com");
   const [password, setPassword] = useState("Simran@1234");
   const modalRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,6 +30,8 @@ const CreateAccountComponent = ({ onClose }) => {
         emailId,
         password,
       },{withCredentials: true});
+      console.log(res.data);
+      dispatch(res.data );
     } catch (err) {
       console.log(err);
     }

@@ -10,6 +10,7 @@ import { BASE_URL } from "../utilis/contants";
 const CreateAccountComponent = ({ onClose }) => {
   const [emailId, setEmailId] = useState("simran@gmail.com");
   const [password, setPassword] = useState("Simran@1234");
+  const [error , setError] = useState("");
   const modalRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const CreateAccountComponent = ({ onClose }) => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post(BASE_URL+"/login", {
+      const res = await axios.post(`${BASE_URL}/login`, {
         emailId,
         password,
       },{withCredentials: true});
@@ -37,7 +38,7 @@ const CreateAccountComponent = ({ onClose }) => {
       dispatch(addUser(res.data));
       return navigate("/feed");
     } catch (err) {
-      console.log(err);
+      setError(err?.response?.data)
     }
   };
 
@@ -96,6 +97,9 @@ const CreateAccountComponent = ({ onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </div>
+            <div className="text-red-500 font-bold text-sm ml-2">
+              <span>{error}</span>
             </div>
           </div>
           <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={handleLogin}>

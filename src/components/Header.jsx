@@ -1,6 +1,8 @@
 import React from "react";
 import { Earth } from "lucide-react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 const Header = () => {
   const user = useSelector((store) => store.user);
 
@@ -8,10 +10,10 @@ const Header = () => {
     <>
       <div className="navbar sticky mt-4 px-5 text-black  top-0 z-50">
         <div className="flex-1">
-          <a className="btn btn-ghost text-4xl font-bold">
+          <Link to={"/"} className="btn btn-ghost text-4xl font-bold">
             <Earth className="size-7 mt-1" />
             Trawell
-          </a>
+          </Link>
           {!user && (
             <ul className="flex gap-3 ml-2 text-xl font-semibold  cursor-pointer ">
               <li>
@@ -49,10 +51,10 @@ const Header = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a className="justify-between">
+                  <Link to="/profile" className="justify-between">
                     {user.firstName+ " " + user.lastName}
                     <span className="badge">Profile</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a>Settings</a>

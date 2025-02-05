@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import appStore from "./utilis/appStore";
+import appStore from "./utils/appStore";
 import Body from "./components/Body";
 import Onboarding from "./components/Onboarding";
 import Feed from "./components/Feed";

@@ -3,8 +3,8 @@ import { Earth } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "../utilis/contants";
-import { removeUser } from "../utilis/userSlice";
+import { BASE_URL } from "../utils/contants";
+import { removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 
 const Header = () => {

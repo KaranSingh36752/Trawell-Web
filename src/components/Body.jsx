@@ -7,8 +7,8 @@ import { Outlet, useLocation } from "react-router";
 import MainBackground from "./MainBackground";
 import CreateAccount from "./CreateAccount";
 import axios from "axios";
-import { BASE_URL } from "../utilis/contants";
-import { addUser } from "../utilis/userSlice";
+import { BASE_URL } from "../utils/contants";
+import { addUser } from "../utils/userSlice";
 
 const Body = () => {
   const dispatch = useDispatch();

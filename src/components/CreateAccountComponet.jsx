@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { Mail, KeyRound } from "lucide-react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utilis/userSlice";
+import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
-import { BASE_URL } from "../utilis/contants";
+import { BASE_URL } from "../utils/contants";
 
 const CreateAccountComponent = ({ onClose }) => {
   const [emailId, setEmailId] = useState("simran@gmail.com");

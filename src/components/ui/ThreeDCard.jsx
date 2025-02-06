@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext, createContext } from "react";
-import { cn } from "../utils/utils";
+import { cn } from "../../utils/utils";
 import Image from "react";
 
 const MouseEnterContext = createContext();
@@ -24,13 +24,13 @@ export const CardContainer = ({ children, className, containerClassName }) => {
 
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
-      <div className={cn("pb-56 pt-5 px-5 max-h-screen flex items-center justify-center ", containerClassName)} style={{ perspective: "1000px" }}>
+      <div className={cn("pb-44 pt-5 px-5 max-h-screen flex items-center justify-center ", containerClassName)} style={{ perspective: "1000px" }}>
         <div
           ref={containerRef}
           onMouseEnter={() => setIsMouseEntered(true)}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className={cn("flex items-center justify-center relative transition-all duration-200 ease-linear", className)}
+          className={cn("flex items-center justify-center relative transition-all duration-200 ease-linear ", className)}
           style={{ transformStyle: "preserve-3d" }}
         >
           {children}
@@ -41,7 +41,7 @@ export const CardContainer = ({ children, className, containerClassName }) => {
 };
 
 export const CardBody = ({ children, className }) => (
-  <div className={cn("h-96 w-96  [transform-style:preserve-3d]", className)}>{children}</div>
+  <div className={cn("h-[27rem] w-96 [transform-style:preserve-3d]", className)}>{children}</div>
 );
 
 export const CardItem = ({ as: Tag = "div", children, className, translateZ = 0, ...rest }) => {
@@ -58,7 +58,7 @@ export const CardItem = ({ as: Tag = "div", children, className, translateZ = 0,
   }, [isMouseEntered]);
 
   return (
-    <Tag ref={ref} className={cn("w-fit transition duration-200 ease-linear", className)} {...rest}>
+    <Tag ref={ref} className={cn("w-fit transition duration-200 ease-linear ", className)} {...rest}>
       {children}
     </Tag>
   );

@@ -2,7 +2,7 @@
 import React from "react";
 
 // A simple Card component that wraps children in a white background with rounded corners and a shadow.
-export const Card = ({ children, className = "" }) => {
+export const EditCard = ({ children, className = "" }) => {
   return (
     <div className={`bg-white rounded-lg shadow overflow-hidden ${className}`}>
       {children}

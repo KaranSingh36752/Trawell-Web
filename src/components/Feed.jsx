@@ -22,7 +22,7 @@ const Feed = () => {
   return (
     <>
       <div className="flex justify-center">
-        {feed && <Card feed={feed[0]} />}
+        {feed && <Card user={feed[0]} />}
       </div>
     </>
   );

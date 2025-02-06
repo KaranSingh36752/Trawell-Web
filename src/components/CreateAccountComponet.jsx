@@ -8,8 +8,8 @@ import { useNavigate } from "react-router";
 import { BASE_URL } from "../utils/contants";
 
 const CreateAccountComponent = ({ onClose }) => {
-  const [emailId, setEmailId] = useState("simran@gmail.com");
-  const [password, setPassword] = useState("Simran@1234");
+  const [emailId, setEmailId] = useState("gauri@gmail.com");
+  const [password, setPassword] = useState("25Oct2004@");
   const [error , setError] = useState("");
   const modalRef = useRef();
   const dispatch = useDispatch();

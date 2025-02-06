@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { Camera, X, Plus, ChevronDown, Search } from 'lucide-react';
-import { Card, CardContent } from './ui/UpdateCard';
+import { EditCard, CardContent } from './ui/UpdateCard';
+import Card from './Card';
+import { useSelector } from 'react-redux';
 
-const EditProfile = ({user}) => {
-  const {firstName,lastName,image,age,gender} = user;
+const EditProfile = ({ user }) => {
+  const { firstName, lastName, image, age, gender,about } = user;
+  // isPreview === true means "Preview" mode is active
+  const [isPreview, setIsPreview] = useState(false);
 
-  // const [firstName , setFirstName] = useState(firstName);
-  // const [lastName , setLastName] = useState(lastName);
-  // const [image , setImage] = useState(image);
-  // const [age , setAge] = useState(age);
-  // const [gender , setGender] = useState(gender);
-  
   // Initial form data state
   const [formData, setFormData] = useState({
     firstName: firstName,
     lastName: lastName,
     age: age,
-    introduction: '',
+    introduction: about,
     instagramUsername: '',
     tiktokUsername: '',
     nationality: 'Canada',
@@ -145,257 +143,293 @@ const EditProfile = ({user}) => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <Card className="max-w-2xl mx-auto">
-        <CardContent className="p-6">
-          {/* Profile Card */}
-          <div className="bg-blue-500 rounded-xl p-6 mb-8 text-white">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-4">
-                <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-white">
-                  {profileImages.main ? (
-                    <img 
-                      src={profileImages.main} 
-                      alt="Profile" 
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                      <Camera className="w-8 h-8 text-gray-400" />
-                    </div>
-                  )}
-                  <label className="absolute bottom-2 right-2 bg-white p-1.5 rounded-full cursor-pointer shadow-lg">
-                    <Camera className="w-4 h-4 text-gray-600" />
-                    <input
-                      type="file"
-                      className="hidden"
-                      onChange={(e) => handleImageUpload('main', e)}
-                      accept="image/*"
-                    />
-                  </label>
-                </div>
-                <div>
-                  <h2 className="text-2xl font-semibold">
-                    {formData.firstName} {formData.lastName}
-                  </h2>
-                  <p className="text-blue-100">Hover to edit profile</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Form Fields */}
-          <div className="space-y-6">
-            {/* Name Fields */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                  className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                  className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-            </div>
-
-            {/* Introduction */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Introduction</label>
-              <textarea
-                name="introduction"
-                value={formData.introduction}
-                onChange={(e) => setFormData(prev => ({ ...prev, introduction: e.target.value }))}
-                rows={4}
-                className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Write a brief introduction about yourself..."
-              />
-            </div>
-
-            {/* Age section */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
-              <input
-              type='text'
-              name="age"
-              value={formData.age}
-              onChange={(e) => setFormData(prev => ({ ...prev, age: e.target.value }))}
-              className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-
-            {/* Language Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Languages</label>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {formData.languages.map(lang => (
-                  <span key={lang} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center">
-                    {lang}
-                    <button
-                      onClick={() => toggleLanguage(lang)}
-                      className="ml-2 text-blue-600 hover:text-blue-800"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </span>
-                ))}
-                <button
-                  onClick={() => setShowLanguageModal(true)}
-                  className="px-3 py-1 border border-gray-300 rounded-full text-sm flex items-center hover:bg-gray-50"
-                >
-                  <Plus className="w-4 h-4 mr-1" /> Add Language
-                </button>
-              </div>
-            </div>
-
-            {/* Interests Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Interests</label>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {formData.interests.map(interest => {
-                  const interestObj = availableInterests.find(i => i.name === interest);
-                  return (
-                    <span key={interest} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center">
-                      {interestObj?.icon} {interest}
-                      <button
-                        onClick={() => toggleInterest({ name: interest })}
-                        className="ml-2 text-blue-600 hover:text-blue-800"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </span>
-                  );
-                })}
-                <button
-                  onClick={() => setShowInterestsModal(true)}
-                  className="px-3 py-1 border border-gray-300 rounded-full text-sm flex items-center hover:bg-gray-50"
-                >
-                  <Plus className="w-4 h-4 mr-1" /> Add Interest
-                </button>
-              </div>
-            </div>
-
-            {/* Visited Places */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Visited Places</label>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {formData.visitedPlaces.map(place => {
-                  const country = countries.find(c => c.name === place);
-                  return (
-                    <span key={place} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center">
-                      {country?.flag} {place}
-                      <button
-                        onClick={() => togglePlace({ name: place })}
-                        className="ml-2 text-blue-600 hover:text-blue-800"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </span>
-                  );
-                })}
-                <button
-                  onClick={() => setShowPlacesModal(true)}
-                  className="px-3 py-1 border border-gray-300 rounded-full text-sm flex items-center hover:bg-gray-50"
-                >
-                  <Plus className="w-4 h-4 mr-1" /> Add Place
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Save Button */}
-          <div className="mt-8">
-            <button className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-colors">
-              Save Changes
+      <EditCard className="max-w-2xl mx-auto">
+        {/* Header Navigation */}
+        <div className="text-xl font-bold flex justify-center border-b-2 shadow-md">
+          <div className="button border-r-2">
+            <button 
+              className={`m-3 flex ${!isPreview ? 'text-blue-500' : ''}`}
+              onClick={() => setIsPreview(false)}
+            >
+              Profile
             </button>
           </div>
-
-          {/* Modals */}
-          <SelectionModal
-            title="Select Languages"
-            show={showLanguageModal}
-            onClose={() => setShowLanguageModal(false)}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              {availableLanguages
-                .filter(lang => lang.toLowerCase().includes(searchTerm.toLowerCase()))
-                .map(language => (
-                  <button
-                    key={language}
-                    onClick={() => toggleLanguage(language)}
-                    className={`p-2 rounded-lg text-left ${
-                      formData.languages.includes(language)
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'hover:bg-gray-100'
-                    }`}
-                  >
-                    {language}
-                  </button>
-                ))}
+          <div className="button">
+            <button 
+              className={`m-3 ${isPreview ? 'text-blue-500' : ''}`}
+              onClick={() => setIsPreview(true)}
+            >
+              Preview
+            </button>
+          </div>
+        </div>
+        
+        {/* Conditionally render Edit Form or Preview Card */}
+        {isPreview ? (
+          // Preview Mode: Show the Card component
+          <div className='z-10'><Card user={user} /></div>
+          
+        ) : (
+          // Edit Mode: Show the edit form inside CardContent
+          <CardContent className="p-6">
+            {/* Profile Card */}
+            <div className="bg-blue-500 rounded-xl p-6 mb-8 text-white">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-4">
+                  <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-white">
+                    {profileImages.main ? (
+                      <img 
+                        src={profileImages.main} 
+                        alt="Profile" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                        <Camera className="w-8 h-8 text-gray-400" />
+                      </div>
+                    )}
+                    <label className="absolute bottom-2 right-2 bg-white p-1.5 rounded-full cursor-pointer shadow-lg">
+                      <Camera className="w-4 h-4 text-gray-600" />
+                      <input
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => handleImageUpload('main', e)}
+                        accept="image/*"
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-semibold">
+                      {formData.firstName} {formData.lastName}
+                    </h2>
+                    <p className="text-blue-100">Hover to edit profile</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </SelectionModal>
 
-          <SelectionModal
-            title="Select Interests"
-            show={showInterestsModal}
-            onClose={() => setShowInterestsModal(false)}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              {availableInterests
-                .filter(interest => interest.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                .map(interest => (
-                  <button
-                    key={interest.name}
-                    onClick={() => toggleInterest(interest)}
-                    className={`p-2 rounded-lg text-left flex items-center ${
-                      formData.interests.includes(interest.name)
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'hover:bg-gray-100'
-                    }`}
-                  >
-                    <span className="mr-2">{interest.icon}</span>
-                    {interest.name}
-                  </button>
-                ))}
-            </div>
-          </SelectionModal>
+            {/* Form Fields */}
+            <div className="space-y-6">
+              {/* Name Fields */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={(e) =>
+                      setFormData(prev => ({ ...prev, firstName: e.target.value }))
+                    }
+                    className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={(e) =>
+                      setFormData(prev => ({ ...prev, lastName: e.target.value }))
+                    }
+                    className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
 
-          <SelectionModal
-            title="Select Last Visited Places"
-            show={showPlacesModal}
-            onClose={() => setShowPlacesModal(false)}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              {countries
-                .filter(country => country.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                .map(country => (
+              {/* Introduction */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Introduction</label>
+                <textarea
+                  name="introduction"
+                  value={formData.introduction}
+                  onChange={(e) =>
+                    setFormData(prev => ({ ...prev, introduction: e.target.value }))
+                  }
+                  rows={4}
+                  className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Write a brief introduction about yourself..."
+                />
+              </div>
+
+              {/* Age section */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                <input
+                  type="text"
+                  name="age"
+                  value={formData.age}
+                  onChange={(e) =>
+                    setFormData(prev => ({ ...prev, age: e.target.value }))
+                  }
+                  className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* Language Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Languages</label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {formData.languages.map(lang => (
+                    <span key={lang} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center">
+                      {lang}
+                      <button
+                        onClick={() => toggleLanguage(lang)}
+                        className="ml-2 text-blue-600 hover:text-blue-800"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </span>
+                  ))}
                   <button
-                    key={country.code}
-                    onClick={() => togglePlace(country)}
-                    className={`p-2 rounded-lg text-left flex items-center ${
-                      formData.visitedPlaces.includes(country.name)
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'hover:bg-gray-100'
-                    }`}
+                    onClick={() => setShowLanguageModal(true)}
+                    className="px-3 py-1 border border-gray-300 rounded-full text-sm flex items-center hover:bg-gray-50"
                   >
-                    <span className="mr-2">{country.flag}</span>
-                    {country.name}
+                    <Plus className="w-4 h-4 mr-1" /> Add Language
                   </button>
-                ))}
+                </div>
+              </div>
+
+              {/* Interests Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Interests</label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {formData.interests.map(interest => {
+                    const interestObj = availableInterests.find(i => i.name === interest);
+                    return (
+                      <span key={interest} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center">
+                        {interestObj?.icon} {interest}
+                        <button
+                          onClick={() => toggleInterest({ name: interest })}
+                          className="ml-2 text-blue-600 hover:text-blue-800"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </span>
+                    );
+                  })}
+                  <button
+                    onClick={() => setShowInterestsModal(true)}
+                    className="px-3 py-1 border border-gray-300 rounded-full text-sm flex items-center hover:bg-gray-50"
+                  >
+                    <Plus className="w-4 h-4 mr-1" /> Add Interest
+                  </button>
+                </div>
+              </div>
+
+              {/* Visited Places */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Last Visited Places</label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {formData.visitedPlaces.map(place => {
+                    const country = countries.find(c => c.name === place);
+                    return (
+                      <span key={place} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center">
+                        {country?.flag} {place}
+                        <button
+                          onClick={() => togglePlace({ name: place })}
+                          className="ml-2 text-blue-600 hover:text-blue-800"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </span>
+                    );
+                  })}
+                  <button
+                    onClick={() => setShowPlacesModal(true)}
+                    className="px-3 py-1 border border-gray-300 rounded-full text-sm flex items-center hover:bg-gray-50"
+                  >
+                    <Plus className="w-4 h-4 mr-1" /> Add Place
+                  </button>
+                </div>
+              </div>
             </div>
-          </SelectionModal>
-        </CardContent>
-      </Card>
+
+            {/* Save Button */}
+            <div className="mt-8">
+              <button className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-colors">
+                Save Changes
+              </button>
+            </div>
+
+            {/* Modals */}
+            <SelectionModal
+              title="Select Languages"
+              show={showLanguageModal}
+              onClose={() => setShowLanguageModal(false)}
+            >
+              <div className="grid grid-cols-2 gap-2">
+                {availableLanguages
+                  .filter(lang => lang.toLowerCase().includes(searchTerm.toLowerCase()))
+                  .map(language => (
+                    <button
+                      key={language}
+                      onClick={() => toggleLanguage(language)}
+                      className={`p-2 rounded-lg text-left ${
+                        formData.languages.includes(language)
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'hover:bg-gray-100'
+                      }`}
+                    >
+                      {language}
+                    </button>
+                  ))}
+              </div>
+            </SelectionModal>
+
+            <SelectionModal
+              title="Select Interests"
+              show={showInterestsModal}
+              onClose={() => setShowInterestsModal(false)}
+            >
+              <div className="grid grid-cols-2 gap-2">
+                {availableInterests
+                  .filter(interest => interest.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                  .map(interest => (
+                    <button
+                      key={interest.name}
+                      onClick={() => toggleInterest(interest)}
+                      className={`p-2 rounded-lg text-left flex items-center ${
+                        formData.interests.includes(interest.name)
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'hover:bg-gray-100'
+                      }`}
+                    >
+                      <span className="mr-2">{interest.icon}</span>
+                      {interest.name}
+                    </button>
+                  ))}
+              </div>
+            </SelectionModal>
+
+            <SelectionModal
+              title="Select Last Visited Places"
+              show={showPlacesModal}
+              onClose={() => setShowPlacesModal(false)}
+            >
+              <div className="grid grid-cols-2 gap-2">
+                {countries
+                  .filter(country => country.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                  .map(country => (
+                    <button
+                      key={country.code}
+                      onClick={() => togglePlace(country)}
+                      className={`p-2 rounded-lg text-left flex items-center ${
+                        formData.visitedPlaces.includes(country.name)
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'hover:bg-gray-100'
+                      }`}
+                    >
+                      <span className="mr-2">{country.flag}</span>
+                      {country.name}
+                    </button>
+                  ))}
+              </div>
+            </SelectionModal>
+          </CardContent>
+        )}
+      </EditCard>
     </div>
   );
 };

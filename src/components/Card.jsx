@@ -1,8 +1,8 @@
 import React from "react";
 import { CardContainer, CardBody, CardItem } from "./ui/ThreeDCard";
 
-const Card = ({ feed }) => {
-  const { firstName, lastName, image } = feed;
+const Card = ({ user }) => {
+  const { firstName, lastName, image } = user;
   return (
     <div className="flex justify-center items-center max-h-full rounded-xl  bg-[#4586ff] ">
       <CardContainer>

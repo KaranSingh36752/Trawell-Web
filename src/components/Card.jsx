@@ -2,7 +2,8 @@ import React from "react";
 import { CardContainer, CardBody, CardItem } from "./ui/ThreeDCard";
 
 const Card = ({ user }) => {
-  const { firstName, lastName, image ,about ,age} = user;
+  const { firstName, lastName, image, about, age, gender } = user;
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   return (
     <div className="flex justify-center items-center max-h-full rounded-xl  bg-[#4586ff] ">
       <CardContainer>
@@ -20,9 +21,15 @@ const Card = ({ user }) => {
           >
             {firstName + " " + lastName}
           </CardItem>
-          <CardItem translateZ={60} className="text-gray-700  text-md">
-            {age}
-          </CardItem>
+          <div className="flex">
+            <CardItem translateZ={60} className="text-gray-700  text-md mr-2">
+              {age}
+            </CardItem>
+            <CardItem translateZ={60} className="text-gray-700  text-md">
+              {capitalize(gender)}
+            </CardItem>
+          </div>
+
           <CardItem translateZ={60} className="text-gray-600  text-sm">
             {about}
           </CardItem>

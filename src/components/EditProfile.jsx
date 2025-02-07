@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Camera, X, Plus, ChevronDown, Search } from 'lucide-react';
 import { EditCard, CardContent } from './ui/UpdateCard';
 import Card from './Card';
-import { useSelector } from 'react-redux';
+import { availableLanguages, availableInterests , countries } from '../utils/contants';
 
 const EditProfile = ({ user }) => {
   const { firstName, lastName, image, age, gender,about } = user;
@@ -23,39 +23,6 @@ const EditProfile = ({ user }) => {
     visitedPlaces: ['Canada']
   });
 
-  // Available options for selections
-  const availableLanguages = [
-    'English', 'French', 'Spanish', 'German', 'Chinese', 'Japanese',
-    'Hindi', 'Punjabi', 'Arabic', 'Russian', 'Portuguese', 'Korean'
-  ];
-
-  const availableInterests = [
-    { name: 'Adventure', icon: '🏃' },
-    { name: 'Beach', icon: '🏖️' },
-    { name: 'Camping', icon: '⛺' },
-    { name: 'Photography', icon: '📸' },
-    { name: 'Hiking', icon: '🥾' },
-    { name: 'Cooking', icon: '👨‍🍳' },
-    { name: 'Music', icon: '🎵' },
-    { name: 'Reading', icon: '📚' },
-    { name: 'Sports', icon: '⚽' },
-    { name: 'Art', icon: '🎨' },
-    { name: 'Travel', icon: '✈️' },
-    { name: 'Gaming', icon: '🎮' }
-  ];
-
-  const countries = [
-    { code: 'CA', name: 'Canada', flag: '🇨🇦' },
-    { code: 'US', name: 'United States', flag: '🇺🇸' },
-    { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
-    { code: 'IN', name: 'India', flag: '🇮🇳' },
-    { code: 'AU', name: 'Australia', flag: '🇦🇺' },
-    { code: 'FR', name: 'France', flag: '🇫🇷' },
-    { code: 'IT', name: 'Italy', flag: '🇮🇹' },
-    { code: 'JP', name: 'Japan', flag: '🇯🇵' },
-    { code: 'DE', name: 'Germany', flag: '🇩🇪' },
-    { code: 'ES', name: 'Spain', flag: '🇪🇸' }
-  ];
 
   // Modal states
   const [showLanguageModal, setShowLanguageModal] = useState(false);
@@ -151,7 +118,7 @@ const EditProfile = ({ user }) => {
               className={`m-3 flex ${!isPreview ? 'text-blue-500' : ''}`}
               onClick={() => setIsPreview(false)}
             >
-              Profile
+              Edit
             </button>
           </div>
           <div className="button">
@@ -167,7 +134,14 @@ const EditProfile = ({ user }) => {
         {/* Conditionally render Edit Form or Preview Card */}
         {isPreview ? (
           // Preview Mode: Show the Card component
-          <div className='z-10'><Card user={user} /></div>
+          <div className='z-10'><Card user={{
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            age: formData.age,
+            gender: gender, // Adjust if gender becomes editable
+            about: formData.introduction, // or change key to 'about' in formData
+            image: profileImages.main
+          }}  /></div>
           
         ) : (
           // Edit Mode: Show the edit form inside CardContent

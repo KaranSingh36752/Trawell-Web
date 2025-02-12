@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
@@ -9,11 +9,13 @@ import CreateAccount from "./CreateAccount";
 import axios from "axios";
 import { BASE_URL } from "../utils/contants";
 import { addUser } from "../utils/userSlice";
+import Sidebar from "./Sidebar";
 
 const Body = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(store => store.user);
+  const user = useSelector((store) => store.user);
   const location = useLocation();
 
   // Fetch user data only if not available
@@ -35,21 +37,29 @@ const Body = () => {
     fetchUser();
   }, []); // Runs only once when Body is mounted
 
+  const toggleSidebar = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   // Hide MainBackground & Footer only on /feed or /profile
-  const hideBackgroundAndFooter = location.pathname === "/feed" || location.pathname === "/profile";
+  const hideBackgroundAndFooter =
+    location.pathname === "/feed" || location.pathname === "/profile";
 
   return (
-    <>
-      <Header />
+    <div >
+      <Header toggleSidebar={toggleSidebar} />
       {!hideBackgroundAndFooter && <MainBackground />}
       {!hideBackgroundAndFooter && <CreateAccount />}
-      <Outlet />
+      <div className="flex w-full">
+  <Sidebar isOpen={isOpen} />
+  <div className="flex-grow flex justify-center items-center">
+    <Outlet />
+  </div>
+</div>
+
       {!hideBackgroundAndFooter && <Footer />}
-    </>
+    </div>
   );
 };
 
 export default Body;
-
-
-

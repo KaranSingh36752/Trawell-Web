@@ -162,7 +162,7 @@ const EditProfile = ({ user }) => {
     <div
       className={`${
         !isPreview
-          ? "min-h-screen bg-gray-50 py-10 px-4"
+          ? "min-h-screen bg-gray-50 py-10 px-4 "
           : " py-10 px-4 flex justify-center bg-gray-50 "
       } `}
     >

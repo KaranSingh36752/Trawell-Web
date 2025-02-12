@@ -3,11 +3,12 @@ import { Earth } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AlignJustify } from 'lucide-react';
 import { BASE_URL } from "../utils/contants";
 import { removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 
-const Header = () => {
+const Header = ({toggleSidebar}) => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,10 +33,13 @@ const Header = () => {
       <div className="navbar sticky mt-4 px-5 text-black  top-0 z-50">
         <div className="flex-1">
           {user ? (
+            <>
+            <AlignJustify className="mt-1 size-6 cursor-pointer" onClick={toggleSidebar}/>
             <Link to={"/feed"} className="btn btn-ghost text-4xl font-bold">
               <Earth className="size-7 mt-1" />
               Trawell
             </Link>
+            </>
           ) : (
             <Link to={"/"} className="btn btn-ghost text-4xl font-bold">
               <Earth className="size-7 mt-1" />

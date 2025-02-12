@@ -51,7 +51,7 @@ const Body = () => {
       {!hideBackgroundAndFooter && <MainBackground />}
       {!hideBackgroundAndFooter && <CreateAccount />}
       <div className="flex w-full">
-  <Sidebar isOpen={isOpen} />
+  {location.pathname !== "/" && <Sidebar isOpen={isOpen} />}
   <div className="flex-grow flex justify-center items-center">
     <Outlet />
   </div>

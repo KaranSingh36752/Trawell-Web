@@ -1,7 +1,7 @@
 import React from "react";
 import { Earth } from "lucide-react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate , useLocation} from "react-router-dom";
 import axios from "axios";
 import { AlignJustify } from 'lucide-react';
 import { BASE_URL } from "../utils/contants";
@@ -12,6 +12,7 @@ const Header = ({toggleSidebar}) => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logoutUser = async () => {
     try {
@@ -34,7 +35,7 @@ const Header = ({toggleSidebar}) => {
         <div className="flex-1">
           {user ? (
             <>
-            <AlignJustify className="mt-1 size-6 cursor-pointer" onClick={toggleSidebar}/>
+           {location.pathname !== "/" && (<AlignJustify className="mt-1 size-6 cursor-pointer" onClick={toggleSidebar}/>)}
             <Link to={"/feed"} className="btn btn-ghost text-4xl font-bold">
               <Earth className="size-7 mt-1" />
               Trawell

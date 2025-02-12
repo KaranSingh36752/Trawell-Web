@@ -43,7 +43,7 @@ const Body = () => {
 
   // Hide MainBackground & Footer only on /feed or /profile
   const hideBackgroundAndFooter =
-    location.pathname === "/feed" || location.pathname === "/profile";
+    location.pathname === "/feed" || location.pathname === "/profile" || location.pathname === "/connections";
 
   return (
     <div >

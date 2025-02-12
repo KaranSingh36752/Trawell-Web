@@ -1,14 +1,14 @@
 import React from "react";
 import { Earth } from "lucide-react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate , useLocation} from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { AlignJustify } from 'lucide-react';
+import { AlignJustify } from "lucide-react";
 import { BASE_URL } from "../utils/contants";
 import { removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 
-const Header = ({toggleSidebar}) => {
+const Header = ({ toggleSidebar }) => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,11 +35,18 @@ const Header = ({toggleSidebar}) => {
         <div className="flex-1">
           {user ? (
             <>
-           {location.pathname !== "/" && (<AlignJustify className="mt-1 size-6 cursor-pointer" onClick={toggleSidebar}/>)}
-            <Link to={"/feed"} className="btn btn-ghost text-4xl font-bold">
-              <Earth className="size-7 mt-1" />
-              Trawell
-            </Link>
+              {location.pathname !== "/" && (
+                <div className="hover:bg-gray-100 p-2 rounded-full">
+                  <AlignJustify
+                    className="mt-1 size-6 cursor-pointer z-10 rounded-full"
+                    onClick={toggleSidebar}
+                  />
+                </div>
+              )}
+              <Link to={"/feed"} className="btn btn-ghost text-4xl font-bold">
+                <Earth className="size-7 mt-1" />
+                Trawell
+              </Link>
             </>
           ) : (
             <Link to={"/"} className="btn btn-ghost text-4xl font-bold">

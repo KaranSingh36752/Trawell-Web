@@ -26,6 +26,8 @@
 ## Create a Travel plan / Share a post / Ai Itineary
 ## MAP feature(753 nearby Travelers)
 ## CHATS
+more will be there 
+connections has been build
 
 
 i want to build the apps for this work and app dev will build with

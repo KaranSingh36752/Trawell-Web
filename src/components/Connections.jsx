@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/contants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionsSlice";
+import  CardDemo  from "./ConnectionCard";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -30,11 +31,11 @@ const Connections = () => {
 
   return (
     <div className="text-center">
-      <h1 className="text-black text-2xl font-bold">Connections</h1>
-      <div>
+      <h1 className="text-black text-3xl font-bold">Connections</h1>
+      <div className="flex gap-6 mt-3">
         {connections.map((connection) => (
-          <div key={connection._id}>
-            <h1>{connection.firstName + " " + connection.lastName}</h1> 
+          <div key={connection._id} className="">
+            <CardDemo connection={connection} />
           </div>
         ))}
       </div>

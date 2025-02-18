@@ -1,5 +1,5 @@
 import React from 'react'
-import { Handshake ,UsersRound } from 'lucide-react';
+import { Handshake ,UsersRound , HandHeart } from 'lucide-react';
 import { Link } from 'react-router';
 
 
@@ -7,7 +7,8 @@ const Sidebar = ({isOpen}) => {
 
     const navigationItems = [
        {icon : Handshake , label : "Connections" ,path:"/connections"},
-       {icon : UsersRound ,label: "Groups",path:"/groups"} 
+       {icon : UsersRound ,label: "Groups",path:"/groups"},
+       {icon : HandHeart , label : "Requests" , path : "/requests"}
     ]
 
   return (

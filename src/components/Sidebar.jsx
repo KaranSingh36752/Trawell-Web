@@ -12,7 +12,7 @@ const Sidebar = ({isOpen}) => {
     ]
 
   return (
-    <div>
+    <div className='sticky'>
         <nav className='mt-5'>
             {navigationItems.map((item , index) => (
                 <div key={index} className='m-1'>

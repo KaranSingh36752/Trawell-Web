@@ -32,7 +32,7 @@ const Connections = () => {
   return (
     <div className="text-center">
       <h1 className="text-black text-3xl font-bold">Connections</h1>
-      <div className="flex gap-6 mt-3">
+      <div className="grid grid-cols-4 gap-6 mt-3">
         {connections.map((connection) => (
           <div key={connection._id} className="">
             <CardDemo connection={connection} />

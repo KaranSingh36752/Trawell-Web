@@ -34,7 +34,7 @@ const CreateAccountComponent = ({ onClose }) => {
         emailId,
         password,
       },{withCredentials: true});
-      console.log(res.data);
+      // console.log(res.data);
       dispatch(addUser(res.data));
       return navigate("/feed");
     } catch (err) {

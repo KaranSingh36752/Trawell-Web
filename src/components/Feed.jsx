@@ -8,23 +8,30 @@ import Card from "./Card";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
-  console.log(feed);
-  const getfeed = async () => {
-    const res = await axios.get(`${BASE_URL}/user/feed`, { withCredentials: true });
-    console.log(res.data);
-    dispatch(setFeed(res.data));
+  // console.log("Current Feed:", feed);
+
+  const getFeed = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/user/feed`, { withCredentials: true });
+      // console.log("API Response:", res.data);
+      dispatch(setFeed(res.data));
+    } catch (err) {
+      console.error("Fetch Error:", err);
+    }
   };
 
   useEffect(() => {
-    getfeed();
+    getFeed();
   }, []);
 
+  if (!feed || feed.length === 0) {
+    return <div>Loading feed... or no users available</div>;
+  }
+
   return (
-    <>
-      <div className="flex justify-center">
-        {feed && <Card user={feed[0]} />}
-      </div>
-    </>
+    <div className="flex justify-center">
+      <Card user={feed[0]} />
+    </div>
   );
 };
 

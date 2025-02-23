@@ -24,7 +24,7 @@ export const CardContainer = ({ children, className, containerClassName }) => {
 
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
-      <div className={cn("pb-44 pt-5 px-5 max-h-screen flex items-center justify-center ", containerClassName)} style={{ perspective: "1000px" }}>
+      <div className={cn("pb-40 pt-5 px-5 max-h-screen flex items-center justify-center ", containerClassName)} style={{ perspective: "1000px" }}>
         <div
           ref={containerRef}
           onMouseEnter={() => setIsMouseEntered(true)}

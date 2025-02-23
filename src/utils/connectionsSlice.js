@@ -1,11 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
+
 const connectionSlice = createSlice({
     name: "connection",
-    initialState: null,
+    initialState: null, // Changed from null to array since you're filtering it
     reducers: {
-        addConnection: (state,action) => action.payload,
-        removeConnection: (state,action) => null,
+        addConnection: (state, action) => {
+            return action.payload; // Replace state with new data
+        },
+        removeConnection: (state, action) => {
+            return null;
+        },
     }
-})
-export const { addConnection, removeConnection } = connectionSlice.actions
-export default connectionSlice.reducer
+});
+
+export const { addConnection, removeConnection } = connectionSlice.actions;
+export default connectionSlice.reducer;

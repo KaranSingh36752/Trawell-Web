@@ -197,8 +197,4 @@ We welcome contributions to Trawell! To get started:
 
 For detailed guidelines, please review our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
----
 
-## License
-
-Distributed under the MIT License. See the [LICENSE](./LICENSE) file for more information.

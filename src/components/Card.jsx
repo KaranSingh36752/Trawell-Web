@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/contants";
 import { Heart, X } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { removeFeedCard } from "../utils/feedSlice";
+import { useLocation } from "react-router";
 
 const Card = ({ user }) => {
   if (!user) {
@@ -12,28 +13,35 @@ const Card = ({ user }) => {
     return null;
   }
 
+  const location = useLocation();
   const { _id, firstName, lastName, image, about, age, gender } = user;
   const capitalize = (str) =>
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   const dispatch = useDispatch();
 
-  const sendRequest = useCallback(async (status, userId) => {
-    try {
-      // console.log(`Sending ${status} request for user ID: ${userId}`);
-      const res = await axios.post(
-        `${BASE_URL}/request/send/${status}/${userId}`,
-        {},
-        { withCredentials: true }
-      );
-      // console.log("API Response:", res.status, res.data);
-      if (res.status === 201) { // Changed from 200 to 201
-        // console.log(`Dispatching removeFeedCard for user ID: ${userId}`);
-        dispatch(removeFeedCard(userId));
+  const sendRequest = useCallback(
+    async (status, userId) => {
+      try {
+        // console.log(`Sending ${status} request for user ID: ${userId}`);
+        const res = await axios.post(
+          `${BASE_URL}/request/send/${status}/${userId}`,
+          {},
+          { withCredentials: true }
+        );
+        // console.log("API Response:", res.status, res.data);
+        if (res.status === 201) {
+          // Changed from 200 to 201
+          // console.log(`Dispatching removeFeedCard for user ID: ${userId}`);
+          dispatch(removeFeedCard(userId));
+        }
+      } catch (err) {
+        console.error("API Error:", err.response?.data || err.message);
       }
-    } catch (err) {
-      console.error("API Error:", err.response?.data || err.message);
-    }
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
+
+  const hideButtons = location.pathname === "/profile";
 
   return (
     <div className="flex justify-center items-center max-h-full rounded-xl bg-[#4586ff]">
@@ -46,7 +54,10 @@ const Card = ({ user }) => {
               className="h-[24rem] w-full object-cover rounded-lg shadow-lg"
             />
           </CardItem>
-          <CardItem translateZ={50} className="text-xl font-bold text-gray-800 mt-8">
+          <CardItem
+            translateZ={50}
+            className="text-xl font-bold text-gray-800 mt-8"
+          >
             {firstName + " " + lastName}
           </CardItem>
           <div className="flex">
@@ -60,28 +71,36 @@ const Card = ({ user }) => {
           <CardItem translateZ={60} className="text-gray-600 text-sm">
             {about}
           </CardItem>
-          <div className="flex justify-between items-center mt-8 relative z-10">
-            <CardItem
-              as="button"
-              translateZ={20}
-              className="cursor-pointer pointer-events-auto px-4 py-2 bg-black text-white font-bold rounded-lg"
-            >
-              <button className="flex gap-1" onClick={() => sendRequest("like", _id)}>
-                <Heart className="" />
-                Like
-              </button>
-            </CardItem>
-            <CardItem
-              as="button"
-              translateZ={20}
-              className="cursor-pointer pointer-events-auto px-4 py-2 bg-black text-white font-bold rounded-lg"
-            >
-              <button className="flex gap-1" onClick={() => sendRequest("pass", _id)}>
-                <X />
-                Pass
-              </button>
-            </CardItem>
-          </div>
+          {!hideButtons && (
+            <div className="flex justify-between items-center mt-8 relative z-10">
+              <CardItem
+                as="button"
+                translateZ={20}
+                className="cursor-pointer pointer-events-auto px-4 py-2 bg-black text-white font-bold rounded-lg"
+              >
+                <button
+                  className="flex gap-1"
+                  onClick={() => sendRequest("like", _id)}
+                >
+                  <Heart className="" />
+                  Like
+                </button>
+              </CardItem>
+              <CardItem
+                as="button"
+                translateZ={20}
+                className="cursor-pointer pointer-events-auto px-4 py-2 bg-black text-white font-bold rounded-lg"
+              >
+                <button
+                  className="flex gap-1"
+                  onClick={() => sendRequest("pass", _id)}
+                >
+                  <X />
+                  Pass
+                </button>
+              </CardItem>
+            </div>
+          )}
         </CardBody>
       </CardContainer>
     </div>

@@ -21,9 +21,9 @@ const EditProfile = ({ user }) => {
   const [formData, setFormData] = useState({
     firstName: firstName,
     lastName: lastName,
-    age: age,
-    introduction: about,
-    gender: gender,
+    age: age || "",
+    introduction: about || "",
+    gender: gender || "",
     instagramUsername: "",
     tiktokUsername: "",
     nationality: "Canada",

@@ -51,16 +51,31 @@ const CreateAccountComponent = ({ onClose }) => {
     }
   };
 
+  const handleSignup = async () => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/signup`,
+        { firstName, lastName, emailId, password },
+        { withCredentials: true }
+      );
+      // console.log(res.data);
+      dispatch(addUser(res.data.data));
+      return navigate("/profile")
+    } catch (err) {
+      setError(err?.response?.data);
+    }
+  };
+
   return (
     <motion.div
-      className="fixed inset-0 flex items-center justify-center p-4 z-10"
+      className="fixed inset-0 flex items-center justify-center p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <motion.div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-xl w-full max-w-md p-6 z-10 mt-5"
+        className="bg-white rounded-lg shadow-xl w-full max-w-md p-6 z-auto mt-5 "
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         exit={{ scale: 0.8 }}
@@ -144,20 +159,36 @@ const CreateAccountComponent = ({ onClose }) => {
           </div>
           <button
             className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg"
-            onClick={handleLogin}
+            onClick={!signUpToggle ? handleLogin : handleSignup}
           >
             Continue
           </button>
           <div>
-            <h1 className="text-black text-sm ml-3 -mt-2">
-              Don't have an account?{" "}
-              <span
-                className=" cursor-pointer underline text-blue-500"
-                onClick={() => setSignUpToggle((value) => !value)}
-              >
-                Sign up
-              </span>
-            </h1>
+            {!signUpToggle ? (
+              <>
+                <h1 className="text-black text-sm ml-3 -mt-2">
+                  Don't have an account?
+                  <span
+                    className="mx-1 cursor-pointer underline text-blue-500"
+                    onClick={() => setSignUpToggle((value) => !value)}
+                  >
+                    Sign up
+                  </span>{" "}
+                </h1>
+              </>
+            ) : (
+              <>
+                <h1 className="text-black text-sm ml-3 -mt-2">
+                  Have Account
+                  <span
+                    className=" mx-1 cursor-pointer underline text-blue-500"
+                    onClick={() => setSignUpToggle((value) => !value)}
+                  >
+                    Login
+                  </span>{" "}
+                </h1>{" "}
+              </>
+            )}
           </div>
           <div className="flex items-center">
             <div className="flex-1 border-t border-gray-300"></div>
@@ -173,14 +204,19 @@ const CreateAccountComponent = ({ onClose }) => {
             </button>
           </div>
           <p className="text-center text-sm text-gray-600">
-            By tapping Log in or Continue, you agree to our Terms. Learn how we
-            process your data in our Privacy Policy, and Cookie Policy.
+            By tapping{!signUpToggle ? " Log in" : " Sign Up"} or Continue, you
+            agree to our Terms. Learn how we process your data in our Privacy
+            Policy, and Cookie Policy.
           </p>
-          <div className="text-center">
-            <a href="#" className="text-sm text-blue-500 hover:underline">
-              Trouble Logging In? Forget password
-            </a>
-          </div>
+          {!signUpToggle && (
+            <>
+              <div className="text-center">
+                <a href="#" className="text-sm text-blue-500 hover:underline">
+                  Trouble Logging In? Forget password
+                </a>
+              </div>
+            </>
+          )}
         </div>
       </motion.div>
     </motion.div>

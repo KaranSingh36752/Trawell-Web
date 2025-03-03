@@ -187,14 +187,6 @@ Real-time communication for community engagement:
 
 ---
 
-## Contributing
 
-We welcome contributions to Trawell! To get started:
-
-1. **Fork the Repository:** Create your own copy of the project.
-2. **Create a Feature Branch:** Develop your feature or fix in a new branch.
-3. **Submit a Pull Request:** Explain your changes and reference any related issues.
-
-For detailed guidelines, please review our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 

@@ -4,8 +4,7 @@ import { cn } from "../utils/utils";
 const CardDemo = ({ connection }) => {
   const { _id, firstName, lastName, age, gender, image, about } = connection;
 
-  const capitalize = (str) =>
-    str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  const capitalize = (str) => (str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : "");
 
   return (
     <div className="min-w-xs w-full group/card">

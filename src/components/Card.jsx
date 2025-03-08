@@ -9,14 +9,20 @@ import { useLocation } from "react-router";
 
 const Card = ({ user }) => {
   if (!user) {
-    // console.log("No user provided to Card");
     return null;
   }
 
   const location = useLocation();
   const { _id, firstName, lastName, image, about, age, gender } = user;
-  const capitalize = (str) =>
-    str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+  
+  const capitalize = (str) => {
+    if (typeof str !== 'string' || !str) {
+      return '';  // Return an empty string or handle the case as needed
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+  
   const dispatch = useDispatch();
 
   const sendRequest = useCallback(
@@ -58,7 +64,7 @@ const Card = ({ user }) => {
             translateZ={50}
             className="text-xl font-bold text-gray-800 mt-8"
           >
-            {firstName + " " + lastName}
+            {capitalize(firstName) + " " +capitalize(lastName) }
           </CardItem>
           <div className="flex">
             <CardItem translateZ={60} className="text-gray-700 text-md mr-2">

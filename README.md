@@ -1,3 +1,4 @@
+
 # Trawell Application
 
 Trawell is a comprehensive travel platform designed to connect travelers, facilitate travel planning, and share unique travel experiences. The application combines social networking, AI-powered itineraries, interactive maps, and personalized travel feeds to create a seamless and engaging user experience.
@@ -186,7 +187,6 @@ Real-time communication for community engagement:
   - Personalized travel insights and trend predictions.
 
 ---
-
 ## Contributing
 
 We welcome contributions to Trawell! To get started:
@@ -196,5 +196,7 @@ We welcome contributions to Trawell! To get started:
 3. **Submit a Pull Request:** Explain your changes and reference any related issues.
 
 For detailed guidelines, please review our [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+
 
 
